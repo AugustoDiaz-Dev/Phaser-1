@@ -7,7 +7,7 @@ export class Scoreboard {
       create() {
         this.scoreText = this.relatedScene.add.text(16,16, 'Score: 0', {
             fontSize: '20px', 
-            // fill: '#fff', 
+            fill: '#fff', 
             fontFamily: 'verdana, arial, sans-serif'
           });
       }
