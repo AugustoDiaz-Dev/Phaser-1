@@ -8,10 +8,9 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: {y:400}, 
             debug: false
         }
     }
 }
 
-var game = new Phaser.Game(config)
+var game = new Phaser.Game(config);
