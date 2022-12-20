@@ -1,4 +1,4 @@
-import { Scoreboard } from "./componentes/Scoreboard.js";
+import { Scoreboard } from "../componentes/Scoreboard.js";
 
 export class Game extends Phaser.Scene {
 
@@ -12,14 +12,12 @@ export class Game extends Phaser.Scene {
   
     preload() {
       this.load.image('background', 'img/background.png');
-      this.load.image('gameover', 'img/gameover.png');
       this.load.image('platform', 'img/platform.png');
       this.load.image('ball', 'img/ball.png');
       this.load.image('bluebrick', 'img/brickBlue.png');
       this.load.image('blackbrick', 'img/brickBlack.png');
       this.load.image('greenbrick', 'img/brickGreen.png');
       this.load.image('orangebrick', 'img/brickOrange.png');
-      this.load.image('congratulations', 'img/congratulations.png')
     }
   
     create() {
@@ -27,14 +25,14 @@ export class Game extends Phaser.Scene {
     
         this.add.image(410, 250, 'background');
         this.scoreboard.create();
-        this.gameoverImage = this.add.image(400, 90, 'gameover');
-        this.gameoverImage.visible = false;
-        this.congratsImage = this.add.image(400, 90, 'congratulations');
-        this.congratsImage.visible = false;
+        // this.gameoverImage = this.add.image(400, 90, 'gameover');
+        // this.gameoverImage.visible = false;
+        // this.congratsImage = this.add.image(400, 90, 'congratulations');
+        // this.congratsImage.visible = false;
 
         this.bricks = this.physics.add.staticGroup({
           key: ['bluebrick', 'orangebrick', 'greenbrick', 'blackbrick'], 
-          frameQuantity: 10, 
+          frameQuantity: 1, 
           gridAlign: {
             width: 10, 
             height: 4, 
@@ -71,8 +69,9 @@ export class Game extends Phaser.Scene {
         brick.disableBody(true, true);
         this.scoreboard.incrementPoints(10);
         if (this.bricks.countActive() === 0) {
-          this.congratsImage.visible = true;
-          this.scene.pause();
+          this.showCongratulations() 
+          // this.congratsImage.visible = true;
+          // this.scene.pause();
         }
       }
 
@@ -85,6 +84,14 @@ export class Game extends Phaser.Scene {
           ball.setVelocityX(10 * relativeImpact);
         }
         
+      }
+
+      showGameOver() {
+        this.scene.start('gameover');
+      }
+      
+      showCongratulations() {
+        this.scene.start('congratulations');
       }
     
       update() {
@@ -107,13 +114,17 @@ export class Game extends Phaser.Scene {
             this.ball.setVelocityX(0);
           }
         }
-    
-        if (this.ball.y > 500) {
-          console.log('fin');
-          this.gameoverImage.visible = true;
-          this.scene.pause();
-          this.bricks.setVisible(false);
+
+        if(this.ball.y > 500) {
+          this.showGameOver();
         }
+    
+        // if (this.ball.y > 500) {
+        //   console.log('fin');
+        //   this.gameoverImage.visible = true;
+        //   this.scene.pause();
+        //   this.bricks.setVisible(false);
+        // }
 
         if (this.cursors.up.isDown) {
           this.ball.setVelocity(-75, -300);

@@ -1,0 +1,15 @@
+{
+  "name": "phaser3-desarrolloweb",
+  "version": "1.0.0",
+  "description": "https://desarrolloweb.com/articulos/introduccion-phaser",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1", 
+    "start": "web-dev-server --node-resolve --watch --open"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@web/dev-server": "^0.1.35"
+  }
+}
